@@ -14,6 +14,10 @@ class PQRSAdmin(admin.ModelAdmin):
         "created_at",
     )
 
+    list_editable = (
+        "status",
+    )
+
     list_filter = (
         "status",
         "category",
@@ -34,6 +38,7 @@ class PQRSAdmin(admin.ModelAdmin):
         "ticket_code",
         "created_at",
     )
+
     fieldsets = (
         (
             "Información del radicado",
@@ -65,4 +70,4 @@ class PQRSAdmin(admin.ModelAdmin):
                 )
             },
         ),
-    ) 
+    )
