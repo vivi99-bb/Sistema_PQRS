@@ -1,7 +1,9 @@
-from django.shortcuts import render
-
-# Create your views here.
 from rest_framework import status
+from rest_framework.parsers import (
+    JSONParser,
+    FormParser,
+    MultiPartParser,
+)
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -9,6 +11,11 @@ from .serializers import PQRSSerializer
 
 
 class PQRSCreateView(APIView):
+    parser_classes = [
+        JSONParser,
+        FormParser,
+        MultiPartParser,
+    ]
 
     def post(self, request):
         serializer = PQRSSerializer(data=request.data)
@@ -24,7 +31,7 @@ class PQRSCreateView(APIView):
                     "status": pqrs.status,
                     "created_at": pqrs.created_at,
                 },
-                status=status.HTTP_201_CREATED
+                status=status.HTTP_201_CREATED,
             )
 
         return Response(
@@ -33,5 +40,5 @@ class PQRSCreateView(APIView):
                 "message": "Los datos enviados no son válidos",
                 "errors": serializer.errors,
             },
-            status=status.HTTP_400_BAD_REQUEST
+            status=status.HTTP_400_BAD_REQUEST,
         )
